@@ -1,17 +1,21 @@
 version: 1
-applications:
-  - frontend:
-      phases:
-        preBuild:
-          commands:
-            - npm ci
-        build:
-          commands:
-            - npm run build
-      artifacts:
-        baseDirectory: .next
-        files:
-          - '**/*'
-      cache:
-        paths:
-          - node_modules/**/*
+env:
+  runtime-versions:
+    nodejs: 18
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # Provo fillimisht npm ci (nëse ka dhe është i përputhshëm)
+        - npm ci || npm install --no-audit --no-fund --legacy-peer-deps
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*
