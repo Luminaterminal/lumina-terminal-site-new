@@ -1,7 +1,7 @@
 {
-  "name": "lumina-terminal-site",
+  "name": "lumina-terminal-site-new",
+  "version": "0.1.0",
   "private": true,
-  "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,15 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.2.3",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "next": "15.0.0-rc.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "typescript": "5.4.2",
-    "@types/react": "18.2.79",
-    "@types/react-dom": "18.2.25",
-    "eslint": "8.57.0",
-    "eslint-config-next": "14.2.3"
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.5.4",
+    "postcss": "^8.4.41",
+    "tailwindcss": "^4.0.0"
   }
 }
