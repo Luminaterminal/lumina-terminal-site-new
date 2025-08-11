@@ -1,12 +1,10 @@
 import type { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
+  const base = 'https://luminaterminal.com';
   return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-    },
-    sitemap: 'https://www.luminaterminal.com/sitemap.xml',
-    host: 'https://www.luminaterminal.com',
+    rules: { userAgent: '*', allow: '/' },
+    sitemap: `${base}/sitemap.xml`,
+    host: base,
   };
 }
