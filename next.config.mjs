@@ -1,7 +1,8 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   experimental: { appDir: true },
-  output: 'standalone'
+  images: { unoptimized: true },
+  trailingSlash: false
 };
 
-export default nextConfig;
+module.exports = nextConfig;
