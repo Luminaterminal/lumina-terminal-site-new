@@ -1,13 +1,11 @@
 version: 1
-env:
-  runtime-versions:
-    nodejs: 18
 frontend:
   phases:
     preBuild:
       commands:
-        # Provo fillimisht npm ci (nëse ka dhe është i përputhshëm)
-        - npm ci || npm install --no-audit --no-fund --legacy-peer-deps
+        - node -v
+        - npm -v
+        - npm install --no-audit --no-fund
     build:
       commands:
         - npm run build
