@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  images: { unoptimized: true },
-  output: 'standalone',
+  experimental: { appDir: true },
+  // Nëse s'po përdor CDN për Next/Image
+  images: { unoptimized: true }
 };
 
 export default nextConfig;
