@@ -1,46 +1,62 @@
-import './globals.css';
+// app/layout.tsx
 import type { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://luminaterminal.com'),
+  metadataBase: new URL('https://www.luminaterminal.com'),
   title: {
     default: 'Lumina Terminal',
     template: '%s | Lumina Terminal',
   },
   description:
-    'Official website for Lumina Terminal — all-in-one trading and market-data platform.',
-  applicationName: 'Lumina Terminal',
-  icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-    ],
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+    'All-in-one trading & market data platform. Charts, screener, alerts and more.',
+  alternates: {
+    canonical: 'https://www.luminaterminal.com',
   },
-  manifest: '/site.webmanifest',
   openGraph: {
-    type: 'website',
-    url: 'https://luminaterminal.com',
-    title: 'Lumina Terminal',
-    description: 'All-in-one trading and market-data platform.',
+    url: 'https://www.luminaterminal.com',
     siteName: 'Lumina Terminal',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Lumina Terminal' }],
+    type: 'website',
+    title: 'Lumina Terminal',
+    description:
+      'All-in-one trading & market data platform. Charts, screener, alerts and more.',
+    images: [
+      { url: '/og-image.png', width: 1200, height: 630, alt: 'Lumina Terminal' },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Lumina Terminal',
-    description: 'All-in-one trading and market-data platform.',
+    description:
+      'All-in-one trading & market data platform. Charts, screener, alerts and more.',
     images: ['/og-image.png'],
   },
+  robots: {
+    index: true, follow: true,
+    googleBot: { index: true, follow: true, maxSnippet: -1, maxImagePreview: 'large' }
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // JSON-LD për Organization (ndihmon SEO)
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Lumina Terminal',
+    url: 'https://www.luminaterminal.com',
+    logo: 'https://www.luminaterminal.com/icon.png'
+  };
+
   return (
     <html lang="en">
-      <body className="min-h-screen bg-white text-gray-900 antialiased">
-        {children}
-      </body>
+      <head>
+        <script
+          type="application/ld+json"
+          // @ts-ignore
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <body className="min-h-screen bg-white text-gray-900">{children}</body>
     </html>
   );
 }
