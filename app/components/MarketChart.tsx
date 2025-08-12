@@ -128,7 +128,7 @@ export default function MarketChart() {
       </div>
 
       <div className="mt-3 text-right text-[11px] text-zinc-500">
-        *Demo UI — jo të dhëna reale.
+        *Demo UI 
       </div>
     </div>
   );
