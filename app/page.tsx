@@ -38,8 +38,8 @@ export default function Page() {
             Illuminate the Markets
           </h1>
           <p className="mt-4 max-w-2xl text-zinc-300">
-            Bring institutional-grade visibility to everyone. Lumina equips both
-            retail and professional traders with the same high-fidelity market insights
+            Bring institutional grade visibility to everyone. Lumina equips both
+            retail and professional traders with the same high fidelity market insights
             typically reserved for institutions.
           </p>
           <div id="cta" className="mt-8 flex gap-3">
@@ -64,15 +64,15 @@ export default function Page() {
         <h2 className="text-2xl md:text-3xl font-semibold">Core features</h2>
         <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
-            ['Real-time market data & order flow', 'High-granularity feeds for precise decision-making.'],
-            ['Level 2+ (MBO/MBP)', 'Market-by-order and market-by-price depth.'],
-            ['Footprint chart', 'Volume-at-price & delta visualization.'],
+            ['Real time market data & order flow', 'High granularity feeds for precise decision making.'],
+            ['Level 2+ (MBO/MBP)', 'Market by order and market by price depth.'],
+            ['Footprint chart', 'Volume at price & delta visualization.'],
             ['Heatmap', 'Liquidity and depth dynamics at a glance.'],
-            ['Real-time news', 'Fast headlines, no noise.'],
+            ['Real time news', 'Fast headlines, no noise.'],
             ['Smart Scanner', 'Volume + price + news filters in real time.'],
             ['Algorithmic bots', 'Design, backtest, and deploy.'],
             ['Copy trading', 'Follow strategies you trust.'],
-            ['Low-latency cloud', 'Web-based, secure, and responsive.'],
+            ['Low latency cloud', 'Web based, secure, and responsive.'],
           ].map(([title, body]) => (
             <div key={title} className="rounded-xl border border-zinc-800 p-5 hover:border-zinc-700 transition">
               <h3 className="font-medium">{title}</h3>
@@ -87,7 +87,7 @@ export default function Page() {
         <div className="rounded-2xl border border-zinc-800 p-8 bg-gradient-to-br from-zinc-950 to-zinc-900">
           <h2 className="text-2xl md:text-3xl font-semibold">For Early Investors</h2>
           <p className="mt-4 text-zinc-300">
-            We bring institutional-grade visibility to everyone—retail and professional traders alike.
+            We bring institutional grade visibility to everyone retail and professional traders alike.
             Pitch deck and business roadmap are available upon request.
           </p>
           <p className="mt-4 text-zinc-300">
@@ -108,7 +108,7 @@ export default function Page() {
         <h2 className="text-2xl md:text-3xl font-semibold">About Lumina</h2>
         <p className="mt-4 max-w-3xl text-zinc-300">
           Built by active traders for active traders. Our mission is to combine AI-driven decision tools
-          with transparent, low-latency market data—so your workflow is faster, clearer, and more confident.
+          with transparent, low latency market data so your workflow is faster, clearer, and more confident.
         </p>
       </section>
 
