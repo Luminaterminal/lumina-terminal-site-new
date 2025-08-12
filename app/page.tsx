@@ -1,19 +1,22 @@
+// app/page.tsx
 import dynamic from 'next/dynamic';
 
-// ngarkim dinamik i chart-it (pa SSR që të mos ketë probleme në build)
-const MarketChart = dynamic(() => import('./components/MarketChart'), { ssr: false });
+
+const MarketChart = dynamic(() => import('./components/MarketChart'), {
+  ssr: false,
+});
+
+const markets = [
+  'All US Equity',
+  'CME Group',
+  'Hong Kong Stock Exchange',
+  'Eurex',
+  'London Stock Exchange',
+  'Forex',
+  'Indices',
+];
 
 export default function Page() {
-  const markets = [
-    'All US Equity',
-    'CME Group',
-    'Hong Kong Exchange',
-    'Eurex',
-    'London Stock Exchange',
-    'Forex',
-    'Indices',
-  ];
-
   return (
     <main className="min-h-screen bg-black text-zinc-100">
       {/* Top bar */}
@@ -27,7 +30,6 @@ export default function Page() {
           </div>
           <nav className="hidden md:flex items-center gap-6 text-sm text-zinc-300">
             <a href="#features" className="hover:text-white">Features</a>
-            <a href="#markets" className="hover:text-white">Markets</a>
             <a href="#investors" className="hover:text-white">Investors</a>
             <a href="#about" className="hover:text-white">About</a>
             <a href="#contact" className="hover:text-white">Contact</a>
@@ -47,7 +49,7 @@ export default function Page() {
           className="pointer-events-none absolute inset-0 opacity-30"
           style={{
             background:
-              'radial-gradient(600px 300px at 50% -20%, #4f46e5 0%, transparent 60%), radial-gradient(600px 300px at 120% 0%, #22d3ee 0%, transparent 50%)'
+              'radial-gradient(600px 300px at 50% -20%, #4f46e5 0%, transparent 60%), radial-gradient(600px 300px at 120% 0%, #22d3ee 0%, transparent 50%)',
           }}
         />
         <div className="mx-auto max-w-7xl px-6 pt-20 pb-16 relative">
@@ -76,6 +78,26 @@ export default function Page() {
         </div>
       </section>
 
+      {/* Markets + Chart */}
+      <section id="markets" className="mx-auto max-w-7xl px-6 py-16">
+        <h2 className="text-2xl md:text-3xl font-semibold">Markets</h2>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          {markets.map((m) => (
+            <span
+              key={m}
+              className="rounded-full border border-zinc-800 bg-zinc-950 px-3 py-1 text-sm text-zinc-300"
+            >
+              {m}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-6 rounded-xl border border-zinc-800 bg-zinc-950 p-4">
+          <MarketChart />
+        </div>
+      </section>
+
       {/* Features */}
       <section id="features" className="mx-auto max-w-7xl px-6 py-16">
         <h2 className="text-2xl md:text-3xl font-semibold">Core features</h2>
@@ -96,36 +118,6 @@ export default function Page() {
               <p className="mt-2 text-sm text-zinc-400">{body}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Markets + Chart */}
-      <section id="markets" className="mx-auto max-w-7xl px-6 py-16">
-        <div className="flex items-end justify-between gap-4">
-          <h2 className="text-2xl md:text-3xl font-semibold">Markets</h2>
-          <span className="text-sm text-zinc-400">demo UI</span>
-        </div>
-
-        <div className="mt-8 grid lg:grid-cols-3 gap-6">
-          {/* lista e tregjeve */}
-          <div className="rounded-xl border border-zinc-800 p-5 h-fit bg-zinc-950">
-            <ul className="space-y-3">
-              {markets.map((m) => (
-                <li key={m} className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 inline-block" />
-                    <span>{m}</span>
-                  </div>
-                  <span className="text-xs text-zinc-500">active</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* chart-i */}
-          <div className="lg:col-span-2">
-            <MarketChart />
-          </div>
         </div>
       </section>
 
@@ -155,7 +147,7 @@ export default function Page() {
         <h2 className="text-2xl md:text-3xl font-semibold">About Lumina</h2>
         <p className="mt-4 max-w-3xl text-zinc-300">
           Built by active traders for active traders. Our mission is to combine AI-driven decision tools
-          with transparent, low latency market data so your workflow is faster, clearer, and more confident.
+          with transparent, low-latency market data so your workflow is faster, clearer, and more confident.
         </p>
       </section>
 
@@ -175,4 +167,3 @@ export default function Page() {
     </main>
   );
 }
-
