@@ -1,15 +1,13 @@
 // app/page.tsx
 import dynamic from 'next/dynamic';
 
-
-const MarketChart = dynamic(() => import('./components/MarketChart'), {
-  ssr: false,
-});
+// market chart ngarkohet vetëm në klient
+const MarketChart = dynamic(() => import('./components/MarketChart'), { ssr: false });
 
 const markets = [
-  'All US Equity',
+  'US Equity',
   'CME Group',
-  'Hong Kong Stock Exchange',
+  'Hong Kong Exchange',
   'Eurex',
   'London Stock Exchange',
   'Forex',
@@ -30,6 +28,7 @@ export default function Page() {
           </div>
           <nav className="hidden md:flex items-center gap-6 text-sm text-zinc-300">
             <a href="#features" className="hover:text-white">Features</a>
+            <a href="#markets" className="hover:text-white">Markets</a>
             <a href="#investors" className="hover:text-white">Investors</a>
             <a href="#about" className="hover:text-white">About</a>
             <a href="#contact" className="hover:text-white">Contact</a>
@@ -49,7 +48,7 @@ export default function Page() {
           className="pointer-events-none absolute inset-0 opacity-30"
           style={{
             background:
-              'radial-gradient(600px 300px at 50% -20%, #4f46e5 0%, transparent 60%), radial-gradient(600px 300px at 120% 0%, #22d3ee 0%, transparent 50%)',
+              'radial-gradient(600px 300px at 50% -20%, #4f46e5 0%, transparent 60%), radial-gradient(600px 300px at 120% 0%, #22d3ee 0%, transparent 50%)'
           }}
         />
         <div className="mx-auto max-w-7xl px-6 pt-20 pb-16 relative">
@@ -80,21 +79,34 @@ export default function Page() {
 
       {/* Markets + Chart */}
       <section id="markets" className="mx-auto max-w-7xl px-6 py-16">
-        <h2 className="text-2xl md:text-3xl font-semibold">Markets</h2>
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          {markets.map((m) => (
-            <span
-              key={m}
-              className="rounded-full border border-zinc-800 bg-zinc-950 px-3 py-1 text-sm text-zinc-300"
-            >
-              {m}
-            </span>
-          ))}
+        <div className="mb-6 flex items-end justify-between">
+          <h2 className="text-2xl md:text-3xl font-semibold">Markets</h2>
+          <span className="text-sm text-zinc-400">demo UI</span>
         </div>
 
-        <div className="mt-6 rounded-xl border border-zinc-800 bg-zinc-950 p-4">
-          <MarketChart />
+        <div className="grid gap-6 lg:grid-cols-3">
+          {/* lista e tregjeve */}
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 h-fit">
+            <ul className="space-y-3">
+              {markets.map((m) => (
+                <li
+                  key={m}
+                  className="flex items-center justify-between rounded-lg border border-zinc-800/60 bg-black/40 px-3 py-2 text-zinc-200"
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 inline-block" />
+                    {m}
+                  </span>
+                  <span className="text-[10px] text-zinc-500">live</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* chart-i */}
+          <div className="lg:col-span-2">
+            <MarketChart />
+          </div>
         </div>
       </section>
 
@@ -126,7 +138,7 @@ export default function Page() {
         <div className="rounded-2xl border border-zinc-800 p-8 bg-gradient-to-br from-zinc-950 to-zinc-900">
           <h2 className="text-2xl md:text-3xl font-semibold">For Early Investors</h2>
           <p className="mt-4 text-zinc-300">
-            We bring institutional grade visibility to everyone retail and professional traders alike.
+            We bring institutional grade visibility to everyone—retail and professional traders alike.
             Pitch deck and business roadmap are available upon request.
           </p>
           <p className="mt-4 text-zinc-300">
