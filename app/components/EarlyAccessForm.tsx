@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function EarlyAccessForm() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle"|"ok"|"err"|"loading">("idle");
+  const [status, setStatus] = useState<"idle" | "ok" | "err" | "loading">("idle");
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -17,12 +17,8 @@ export default function EarlyAccessForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-      if (res.ok) {
-        setStatus("ok");
-        setEmail("");
-      } else {
-        setStatus("err");
-      }
+      setStatus(res.ok ? "ok" : "err");
+      if (res.ok) setEmail("");
     } catch {
       setStatus("err");
     }
@@ -33,7 +29,7 @@ export default function EarlyAccessForm() {
       <input
         type="email"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
         placeholder="email@domain.com"
         className="rounded-lg border border-zinc-700 bg-black/40 px-3 py-2 text-sm text-white"
         required
