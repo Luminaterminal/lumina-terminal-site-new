@@ -3,49 +3,37 @@ import { useState } from "react";
 
 export default function EarlyAccessForm() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "ok" | "err" | "loading">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "err">("idle");
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email) return;
-
-    try {
-      setStatus("loading");
-      const res = await fetch("/api/early-access", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      setStatus(res.ok ? "ok" : "err");
-      if (res.ok) setEmail("");
-    } catch {
-      setStatus("err");
-    }
+    setStatus("sending");
+    const res = await fetch("/api/early-access", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    setStatus(res.ok ? "ok" : "err");
   }
 
   return (
-    <form onSubmit={submit} className="flex gap-2">
+    <form onSubmit={submit} className="mt-6 flex gap-2">
       <input
         type="email"
+        required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="email@domain.com"
-        className="rounded-lg border border-zinc-700 bg-black/40 px-3 py-2 text-sm text-white"
-        required
+        placeholder="you@example.com"
+        className="w-64 rounded-md bg-zinc-900 border border-zinc-700 px-3 py-2 text-sm"
       />
       <button
-        type="submit"
-        disabled={status === "loading"}
-        className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black"
+        disabled={status === "sending"}
+        className="rounded-md bg-white text-black px-4 py-2 text-sm font-medium"
       >
-        {status === "loading" ? "Sending..." : "Get Early Access"}
+        {status === "sending" ? "Sending..." : "Get early access"}
       </button>
-      {status === "ok" && (
-        <span className="text-sm text-emerald-400">Faleminderit! U ruajt.</span>
-      )}
-      {status === "err" && (
-        <span className="text-sm text-red-400">Diçka s’shkoi mirë.</span>
-      )}
+      {status === "ok" && <span className="text-green-400 text-sm">Thanks!</span>}
+      {status === "err" && <span className="text-red-400 text-sm">Try again</span>}
     </form>
   );
 }
