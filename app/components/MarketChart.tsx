@@ -23,8 +23,8 @@ const data: Pt[] = [
   { t: '13:00', p: 23.12, v: 0.8 },
   { t: '13:30', p: 23.28, v: 1.0 },
   { t: '14:00', p: 23.22, v: 0.9 },
-  { t: '14:30', p: 23.40, v: 1.6 }, // spike
-  { t: '15:00', p: 23.58, v: 2.3 }, // spike
+  { t: '14:30', p: 23.40, v: 1.6 },
+  { t: '15:00', p: 23.58, v: 2.3 },
 ];
 
 const badges = [
@@ -40,28 +40,18 @@ function Tip({ active, payload, label }: any) {
   return (
     <div className="rounded-md border border-zinc-700 bg-zinc-900/90 px-3 py-2 text-xs">
       <div className="text-zinc-300">{label}</div>
-      {price !== undefined && (
-        <div className="text-white">Price: ${price.toFixed(2)}</div>
-      )}
-      {vol !== undefined && (
-        <div className="text-amber-300">Volume: {vol.toFixed(2)}M</div>
-      )}
+      {price !== undefined && <div className="text-white">Price: ${price.toFixed(2)}</div>}
+      {vol !== undefined && <div className="text-amber-300">Volume: {vol.toFixed(2)}M</div>}
     </div>
   );
 }
 
 export default function MarketChart() {
   return (
-     <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6 h-72 flex items-center justify-center">
-      <span className="text-zinc-400 text-sm">Chart placeholder</span>
-    </div>
-  );
-}
+    <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
       {/* header i kartës */}
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <div className="text-sm text-zinc-400">
-          Intraday · sample data
-        </div>
+        <div className="text-sm text-zinc-400">Intraday · sample data</div>
         <div className="flex flex-wrap gap-2">
           {badges.map((b) => (
             <span
@@ -86,13 +76,7 @@ export default function MarketChart() {
             </defs>
 
             <CartesianGrid stroke="#27272a" vertical={false} />
-            <XAxis
-              dataKey="t"
-              tick={{ fill: '#a1a1aa', fontSize: 12 }}
-              axisLine={false}
-              tickLine={false}
-            />
-            {/* Y për çmimin (majtas) */}
+            <XAxis dataKey="t" tick={{ fill: '#a1a1aa', fontSize: 12 }} axisLine={false} tickLine={false} />
             <YAxis
               yAxisId="left"
               width={42}
@@ -101,12 +85,10 @@ export default function MarketChart() {
               tickLine={false}
               domain={['dataMin - 0.3', 'dataMax + 0.3']}
             />
-            {/* Y për volumin (djathtas, fshehur) */}
             <YAxis yAxisId="right" orientation="right" hide domain={[0, 'dataMax + 0.5']} />
 
             <Tooltip content={<Tip />} />
 
-            {/* volumet (shtylla) */}
             <Bar
               yAxisId="right"
               dataKey="v"
@@ -116,7 +98,6 @@ export default function MarketChart() {
               opacity={0.65}
             />
 
-            {/* çmimi (area) */}
             <Area
               yAxisId="left"
               type="monotone"
@@ -131,10 +112,7 @@ export default function MarketChart() {
         </ResponsiveContainer>
       </div>
 
-      <div className="mt-3 text-right text-[11px] text-zinc-500">
-        *Demo UI 
-      </div>
+      <div className="mt-3 text-right text-[11px] text-zinc-500">*Demo UI</div>
     </div>
   );
 }
-
