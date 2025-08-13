@@ -38,6 +38,8 @@ export default function Page() {
             className="rounded-lg bg-white text-black px-3 py-1.5 text-sm font-medium hover:bg-zinc-200"
           >
             Get early access
+            import dynamic from "next/dynamic";
+const EarlyAccessForm = dynamic(() => import("./components/EarlyAccessForm"), { ssr: false });
           </a>
         </div>
       </header>
