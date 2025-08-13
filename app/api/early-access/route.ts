@@ -1,12 +1,13 @@
 // app/api/early-access/route.ts
 import { NextResponse } from "next/server";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { ddb, TABLE } from "../../lib/db";
+import { ddb, TABLE } from "../../lib/db"; // relative: nga api/early-access te lib/db
 
 export async function POST(req: Request) {
   try {
     const { email } = await req.json();
-    if (!email) {
+
+    if (!email || typeof email !== "string") {
       return NextResponse.json({ error: "Email required" }, { status: 400 });
     }
 
@@ -17,12 +18,14 @@ export async function POST(req: Request) {
       new PutCommand({
         TableName: TABLE,
         Item: { id, email, createdAt },
+        // nëse s'do duplikate: ConditionExpression: "attribute_not_exists(email)",
       })
     );
 
     return NextResponse.json({ ok: true });
-  } catch (err) {
-    console.error("Dynamo Put error:", err);
+  } catch (err: any) {
+    console.error("Dynamo Put error:", err?.name ?? err);
+    // edhe po dështoi, mos e le të rrëzohet UI:
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
