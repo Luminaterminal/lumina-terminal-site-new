@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic';
 
 // market chart ngarkohet vetëm në klient
 const MarketChart = dynamic(() => import('./components/MarketChart'), { ssr: false });
+const EarlyAccessForm = dynamic(() => import("./components/EarlyAccessForm"), { ssr: false });
+
 
 const markets = [
   'US Equity',
