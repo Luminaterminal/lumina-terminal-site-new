@@ -1,7 +1,13 @@
 // app/api/early-access/route.ts
 import { NextResponse } from "next/server";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { ddb, TABLE } from "../../lib/db"; // relative nga api/early-access te lib/db
+import { randomUUID } from "crypto";
+import { ddb, TABLE } from "../../lib/db";
+
+// test GET (mund ta lësh, të ndihmon për health-check)
+export async function GET() {
+  return NextResponse.json({ ok: true });
+}
 
 export async function POST(req: Request) {
   try {
@@ -10,7 +16,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Email mungon" }, { status: 400 });
     }
 
-    const id = crypto.randomUUID();
+    const id = randomUUID();
     const createdAt = new Date().toISOString();
 
     await ddb.send(
