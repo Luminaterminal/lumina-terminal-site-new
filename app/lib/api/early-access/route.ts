@@ -1,12 +1,12 @@
 // app/api/early-access/route.ts
 import { NextResponse } from "next/server";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { ddb, TABLE } from "../../lib/db"; // nëse ke alias @/ përdor "@/app/lib/db"
+// relative import (nga api/early-access/ te lib/db)
+import { ddb, TABLE } from "../../lib/db";
 
 export async function POST(req: Request) {
   try {
     const { email } = await req.json();
-
     if (!email) {
       return NextResponse.json({ error: "Email mungon" }, { status: 400 });
     }
