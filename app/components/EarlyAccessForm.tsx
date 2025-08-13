@@ -34,7 +34,7 @@ export default function EarlyAccessForm() {
         disabled={status === "loading"}
         className="rounded-lg bg-white text-black px-4 py-2 font-medium disabled:opacity-50"
       >
-        {status === "loading" ? "Sending..." : "Request access"}
+        {status === "loading" ? "Sending..." : "Get early access"}
       </button>
       {status === "ok" && (
         <span className="text-sm text-green-400 ml-2">Thanks!</span>
