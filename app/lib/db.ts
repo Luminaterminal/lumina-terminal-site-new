@@ -7,7 +7,9 @@ const accessKeyId = process.env.LUMINA_AKID!;
 const secretAccessKey = process.env.LUMINA_SAK!;
 
 if (!region || !accessKeyId || !secretAccessKey) {
-  throw new Error("Missing AWS env vars (LUMINA_REGION / LUMINA_AKID / LUMINA_SAK).");
+  throw new Error(
+    "Missing AWS env vars (LUMINA_REGION, LUMINA_AKID, LUMINA_SAK)."
+  );
 }
 
 const raw = new DynamoDBClient({
