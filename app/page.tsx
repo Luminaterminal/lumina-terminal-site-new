@@ -1,19 +1,18 @@
 // app/page.tsx
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-// market chart ngarkohet vetëm në klient
-const MarketChart = dynamic(() => import('./components/MarketChart'), { ssr: false });
+// komponentët që duam vetëm në klient
+const MarketChart = dynamic(() => import("./components/MarketChart"), { ssr: false });
 const EarlyAccessForm = dynamic(() => import("./components/EarlyAccessForm"), { ssr: false });
 
-
 const markets = [
-  'US Equity',
-  'CME Group',
-  'Hong Kong Exchange',
-  'Eurex',
-  'London Stock Exchange',
-  'Forex',
-  'Indices',
+  "US Equity",
+  "CME Group",
+  "Hong Kong Exchange",
+  "Eurex",
+  "London Stock Exchange",
+  "Forex",
+  "Indices",
 ];
 
 export default function Page() {
@@ -28,6 +27,7 @@ export default function Page() {
             </div>
             <span className="font-semibold tracking-wide">Lumina Terminal</span>
           </div>
+
           <nav className="hidden md:flex items-center gap-6 text-sm text-zinc-300">
             <a href="#features" className="hover:text-white">Features</a>
             <a href="#markets" className="hover:text-white">Markets</a>
@@ -35,21 +35,16 @@ export default function Page() {
             <a href="#about" className="hover:text-white">About</a>
             <a href="#contact" className="hover:text-white">Contact</a>
           </nav>
+
+          {/* butoni vetëm të të çojë te seksioni #cta për formën */}
           <a
             href="#cta"
             className="rounded-lg bg-white text-black px-3 py-1.5 text-sm font-medium hover:bg-zinc-200"
           >
             Get early access
-            import dynamic from "next/dynamic";
-const EarlyAccessForm = dynamic(() => import("./components/EarlyAccessForm"), { ssr: false });
           </a>
         </div>
       </header>
-import dynamic from "next/dynamic";
-const EarlyAccessForm = dynamic(() => import("./components/EarlyAccessForm"), { ssr: false });
-
-// ... diku në JSX:
-<EarlyAccessForm />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
@@ -57,7 +52,7 @@ const EarlyAccessForm = dynamic(() => import("./components/EarlyAccessForm"), { 
           className="pointer-events-none absolute inset-0 opacity-30"
           style={{
             background:
-              'radial-gradient(600px 300px at 50% -20%, #4f46e5 0%, transparent 60%), radial-gradient(600px 300px at 120% 0%, #22d3ee 0%, transparent 50%)'
+              "radial-gradient(600px 300px at 50% -20%, #4f46e5 0%, transparent 60%), radial-gradient(600px 300px at 120% 0%, #22d3ee 0%, transparent 50%)",
           }}
         />
         <div className="mx-auto max-w-7xl px-6 pt-20 pb-16 relative">
@@ -69,13 +64,10 @@ const EarlyAccessForm = dynamic(() => import("./components/EarlyAccessForm"), { 
             retail and professional traders with the same high fidelity market insights
             typically reserved for institutions.
           </p>
-          <div id="cta" className="mt-8 flex gap-3">
-            <a
-              href="mailto:admin@luminaterminal.com"
-              className="rounded-lg bg-white text-black px-5 py-2.5 font-medium hover:bg-zinc-200"
-            >
-              Get early access
-            </a>
+
+          {/* CTA: këtu e fusim formën */}
+          <div id="cta" className="mt-8 flex flex-col sm:flex-row gap-3">
+            <EarlyAccessForm />
             <a
               href="#features"
               className="rounded-lg ring-1 ring-zinc-700 px-5 py-2.5 font-medium hover:bg-zinc-900"
@@ -124,15 +116,15 @@ const EarlyAccessForm = dynamic(() => import("./components/EarlyAccessForm"), { 
         <h2 className="text-2xl md:text-3xl font-semibold">Core features</h2>
         <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
-            ['Real time market data & order flow', 'High granularity feeds for precise decision making.'],
-            ['Level 2+ (MBO/MBP)', 'Market by order and market by price depth.'],
-            ['Footprint chart', 'Volume at price & delta visualization.'],
-            ['Heatmap', 'Liquidity and depth dynamics at a glance.'],
-            ['Real time news', 'Fast headlines, no noise.'],
-            ['Smart Scanner', 'Volume + price + news filters in real time.'],
-            ['Algorithmic bots', 'Design, backtest, and deploy.'],
-            ['Copy trading', 'Follow strategies you trust.'],
-            ['Low latency cloud', 'Web based, secure, and responsive.'],
+            ["Real time market data & order flow", "High granularity feeds for precise decision making."],
+            ["Level 2+ (MBO/MBP)", "Market by order and market by price depth."],
+            ["Footprint chart", "Volume at price & delta visualization."],
+            ["Heatmap", "Liquidity and depth dynamics at a glance."],
+            ["Real time news", "Fast headlines, no noise."],
+            ["Smart Scanner", "Volume + price + news filters in real time."],
+            ["Algorithmic bots", "Design, backtest, and deploy."],
+            ["Copy trading", "Follow strategies you trust."],
+            ["Low latency cloud", "Web based, secure, and responsive."],
           ].map(([title, body]) => (
             <div key={title} className="rounded-xl border border-zinc-800 p-5 hover:border-zinc-700 transition">
               <h3 className="font-medium">{title}</h3>
