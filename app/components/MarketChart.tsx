@@ -52,7 +52,11 @@ function Tip({ active, payload, label }: any) {
 
 export default function MarketChart() {
   return (
-    <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
+     <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6 h-72 flex items-center justify-center">
+      <span className="text-zinc-400 text-sm">Chart placeholder</span>
+    </div>
+  );
+}
       {/* header i kartës */}
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div className="text-sm text-zinc-400">
