@@ -43,6 +43,11 @@ const EarlyAccessForm = dynamic(() => import("./components/EarlyAccessForm"), { 
           </a>
         </div>
       </header>
+import dynamic from "next/dynamic";
+const EarlyAccessForm = dynamic(() => import("./components/EarlyAccessForm"), { ssr: false });
+
+// ... diku në JSX:
+<EarlyAccessForm />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
