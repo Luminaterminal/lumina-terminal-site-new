@@ -18,14 +18,12 @@ export async function POST(req: Request) {
       new PutCommand({
         TableName: TABLE,
         Item: { id, email, createdAt },
-        // nëse s'do duplikate: ConditionExpression: "attribute_not_exists(email)",
       })
     );
 
     return NextResponse.json({ ok: true });
   } catch (err: any) {
     console.error("Dynamo Put error:", err?.name ?? err);
-    // edhe po dështoi, mos e le të rrëzohet UI:
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
