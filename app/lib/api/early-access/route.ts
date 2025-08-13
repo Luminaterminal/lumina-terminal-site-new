@@ -1,8 +1,7 @@
 // app/api/early-access/route.ts
 import { NextResponse } from "next/server";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-// relative import (nga api/early-access/ te lib/db)
-import { ddb, TABLE } from "../../lib/db";
+import { ddb, TABLE } from "../../lib/db"; // relative nga api/early-access te lib/db
 
 export async function POST(req: Request) {
   try {
@@ -17,7 +16,7 @@ export async function POST(req: Request) {
     await ddb.send(
       new PutCommand({
         TableName: TABLE,
-        Item: { id, email, createdAt }
+        Item: { id, email, createdAt },
       })
     );
 
