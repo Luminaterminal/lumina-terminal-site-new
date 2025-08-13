@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 
 export default function EarlyAccessForm() {
@@ -45,7 +44,7 @@ export default function EarlyAccessForm() {
         <span className="text-sm text-emerald-400">Faleminderit! U ruajt.</span>
       )}
       {status === "err" && (
-        <span className="text-sm text-red-400">Diçka s'shkoi mirë.</span>
+        <span className="text-sm text-red-400">Diçka s’shkoi mirë.</span>
       )}
     </form>
   );
