@@ -1,33 +1,22 @@
-// app/api/early-access/route.ts
-import { NextResponse } from "next/server";
-import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { ddb, TABLE } from "@/lib/db"; // ose "../../lib/db" nëse s'ke alias "@"
+// app/lib/db.ts
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
-export async function POST(req: Request) {
-  try {
-    const body = await req.json().catch(() => ({} as any));
-    const email = (body?.email || "").toString().trim();
+const region = process.env.LUMINA_REGION!;
+const accessKeyId = process.env.LUMINA_AKID!;
+const secretAccessKey = process.env.LUMINA_SAK!;
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ ok: false, message: "Email mungon ose është i pasaktë" }, { status: 400 });
-    }
-
-    const id = crypto.randomUUID();
-    const createdAt = new Date().toISOString();
-
-    await ddb.send(
-      new PutCommand({
-        TableName: TABLE,
-        Item: { id, email, createdAt } // ruajmë të dyja fushat -> tabela pranon atë që e ka PK
-      })
-    );
-
-    return NextResponse.json({ ok: true });
-  } catch (err: any) {
-    console.error("Dynamo Put error:", err);
-    return NextResponse.json(
-      { ok: false, message: err?.message ?? "Server error" },
-      { status: 500 }
-    );
-  }
+if (!region || !accessKeyId || !secretAccessKey) {
+  throw new Error("Mungojnë env vars: LUMINA_REGION / LUMINA_AKID / LUMINA_SAK");
 }
+
+const raw = new DynamoDBClient({
+  region,
+  credentials: { accessKeyId, secretAccessKey },
+});
+
+export const ddb = DynamoDBDocumentClient.from(raw, {
+  marshallOptions: { removeUndefinedValues: true },
+});
+
+export const TABLE = process.env.TABLE_NAME || "Early_access";
