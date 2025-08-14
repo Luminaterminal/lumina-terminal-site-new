@@ -1,12 +1,17 @@
 // app/api/early-access/route.ts
-export const runtime = "nodejs";           // siguron Node runtime (jo Edge)
-export const dynamic = "force-dynamic";    // shmang cache për POST
+export const runtime = "nodejs";           // detyron Node runtime
+export const dynamic = "force-dynamic";    // mos e cache-o këtë endpoint
 
 import { NextResponse } from "next/server";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-// IMPORT RELATIV nga /app/api/early-access -> /app/lib/db
 import { ddb, TABLE } from "../../lib/db";
-import { randomUUID } from "crypto";
+
+// ID pa crypto që s’bllokon build-in
+function makeId() {
+  return (
+    Date.now().toString(36) + Math.random().toString(36).slice(2, 8)
+  ).toUpperCase();
+}
 
 export async function POST(req: Request) {
   try {
@@ -20,13 +25,13 @@ export async function POST(req: Request) {
       );
     }
 
-    const id = randomUUID();
+    const id = makeId();
     const createdAt = new Date().toISOString();
 
     await ddb.send(
       new PutCommand({
         TableName: TABLE,
-        Item: { id, email, createdAt },
+        Item: { id, email, createdAt }, // PK: id (S), plus email dhe createdAt
       })
     );
 
