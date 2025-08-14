@@ -1,8 +1,10 @@
 // app/page.tsx
 import dynamic from "next/dynamic";
+
 // komponentët që duam vetëm në klient
 const MarketChart = dynamic(() => import("./components/MarketChart"), { ssr: false });
 const EarlyAccessForm = dynamic(() => import("./components/EarlyAccessForm"), { ssr: false });
+
 const markets = [
   "US Equity",
   "CME Group",
@@ -12,6 +14,7 @@ const markets = [
   "Forex",
   "Indices",
 ];
+
 export default function Page() {
   return (
     <main className="min-h-screen bg-black text-zinc-100">
@@ -40,6 +43,7 @@ export default function Page() {
           </a>
         </div>
       </header>
+
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div
@@ -70,6 +74,7 @@ export default function Page() {
           </div>
         </div>
       </section>
+
       {/* Markets + Chart */}
       <section id="markets" className="mx-auto max-w-7xl px-6 py-16">
         <div className="mb-6 flex items-end justify-between">
@@ -100,6 +105,7 @@ export default function Page() {
           </div>
         </div>
       </section>
+
       {/* Features */}
       <section id="features" className="mx-auto max-w-7xl px-6 py-16">
         <h2 className="text-2xl md:text-3xl font-semibold">Core features</h2>
@@ -122,6 +128,7 @@ export default function Page() {
           ))}
         </div>
       </section>
+
       {/* Investors */}
       <section id="investors" className="mx-auto max-w-7xl px-6 py-16">
         <div className="rounded-2xl border border-zinc-800 p-8 bg-gradient-to-br from-zinc-950 to-zinc-900">
@@ -142,6 +149,7 @@ export default function Page() {
           </a>
         </div>
       </section>
+
       {/* About */}
       <section id="about" className="mx-auto max-w-7xl px-6 py-16">
         <h2 className="text-2xl md:text-3xl font-semibold">About Lumina</h2>
@@ -150,6 +158,7 @@ export default function Page() {
           with transparent, low-latency market data so your workflow is faster, clearer, and more confident.
         </p>
       </section>
+
       {/* Contact */}
       <section id="contact" className="mx-auto max-w-7xl px-6 py-16">
         <div className="rounded-xl border border-zinc-800 p-6">
@@ -157,6 +166,7 @@ export default function Page() {
           <p className="mt-2 text-zinc-300">admin@luminaterminal.com</p>
         </div>
       </section>
+
       <footer className="border-t border-zinc-800">
         <div className="mx-auto max-w-7xl px-6 py-6 text-sm text-zinc-500">
           © {new Date().getFullYear()} Lumina Terminal. All rights reserved.
