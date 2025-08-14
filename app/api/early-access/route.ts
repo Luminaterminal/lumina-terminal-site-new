@@ -1,7 +1,7 @@
 // app/api/early-access/route.ts
 import { NextResponse } from "next/server";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { ddb, TABLE } from "@/lib/db"; // ose "../../lib/db" nëse s’ke alias "@"
+import { ddb, TABLE } from "@/lib/db"; // ose "../../lib/db" nëse s'ke alias "@"
 
 export async function POST(req: Request) {
   try {
@@ -12,16 +12,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, message: "Email mungon ose është i pasaktë" }, { status: 400 });
     }
 
-    // Ky kod vendos *gjithmonë* id + email + createdAt.
-    // Në DynamoDB mjafton që të ekzistojë partition key (qoftë "email" OSE "id").
-    // Pra ky version punon në të dy rastet.
     const id = crypto.randomUUID();
     const createdAt = new Date().toISOString();
 
     await ddb.send(
       new PutCommand({
-        TableName: TABLE,              // duhet të jetë "Early_access" nga env
-        Item: { id, email, createdAt } // të dy fushat ruhen; PK e tabelës do ta pranojë njërën
+        TableName: TABLE,
+        Item: { id, email, createdAt } // ruajmë të dyja fushat -> tabela pranon atë që e ka PK
       })
     );
 
@@ -34,4 +31,3 @@ export async function POST(req: Request) {
     );
   }
 }
-
