@@ -217,7 +217,10 @@ const MarketChart = () => {
     {
       name: 'Unusual Volume (M)',
       type: 'column',
-      data: volumeData,
+      data: volumeData.map((v, i) => ({
+        x: new Date(times[i]).getTime(),
+        y: v,
+      })),
     },
   ];
 
