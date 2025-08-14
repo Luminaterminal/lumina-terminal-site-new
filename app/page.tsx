@@ -202,7 +202,7 @@ const MarketChart = () => {
   ];
 
   const volumeData = [
-    0.5, 1.0, 5.0, 1.5, 1.0, 0.5, 0.8, 0.6, 0.9, 1.2, 1.5, 3.1 // Approximated unusual volume peaks based on images
+    0.5, 1.0, 5.0, 1.5, 1.0, 0.5, 0.8, 0.6, 0.9, 1.2, 1.5, 3.1 // Vëllimet e paparashikuara bazuar në foto
   ];
 
   const series = [
@@ -310,7 +310,7 @@ const MarketChart = () => {
           },
         },
         {
-          x: new Date('2025-08-14T09:58:00').getTime() + 60000, // slightly offset
+          x: new Date('2025-08-14T09:58:00').getTime() + 60000, // pak i zhvendosur
           borderColor: '#775DD0',
           label: {
             borderColor: '#775DD0',
