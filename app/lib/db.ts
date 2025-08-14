@@ -7,9 +7,7 @@ const accessKeyId = process.env.LUMINA_AKID!;
 const secretAccessKey = process.env.LUMINA_SAK!;
 
 if (!region || !accessKeyId || !secretAccessKey) {
-  throw new Error(
-    "Missing AWS env vars (LUMINA_REGION, LUMINA_AKID, LUMINA_SAK)."
-  );
+  throw new Error("Mungojnë env vars: LUMINA_REGION / LUMINA_AKID / LUMINA_SAK");
 }
 
 const raw = new DynamoDBClient({
@@ -21,4 +19,4 @@ export const ddb = DynamoDBDocumentClient.from(raw, {
   marshallOptions: { removeUndefinedValues: true },
 });
 
-export const TABLE = process.env.TABLE_NAME ?? "Early_access";
+export const TABLE = process.env.TABLE_NAME || "Early_access";
