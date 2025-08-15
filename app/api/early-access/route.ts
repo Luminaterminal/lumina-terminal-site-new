@@ -4,17 +4,21 @@ export const dynamic = "force-dynamic";
 
 import { NextResponse } from "next/server";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { ddb, TABLE } from "../../lib/db";
+// ⬇️ korrigjo rrugën sipas strukturës tënde
+import { ddb, TABLE } from "../../../lib/db";
 
 // ID e shkurtër si "safe PK"
 function makeId() {
-  return (Date.now().toString(36) + Math.random().toString(36).slice(2, 8)).toUpperCase();
+  return (
+    Date.now().toString(36) + Math.random().toString(36).slice(2, 8)
+  ).toUpperCase();
 }
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json().catch(() => ({} as any));
-    const email = (body?.email || "").toString().trim();
+    // mos lër tekst jashtë-komenti këtu, përndryshe prishet build-i
+    const body = (await req.json().catch(() => ({}))) as { email?: string };
+    const email = (body?.email || "").toString().trim().toLowerCase();
 
     // validim i thjeshtë
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -25,33 +29,23 @@ export async function POST(req: Request) {
     const id = makeId();
     const createdAt = new Date().toISOString();
 
-    // provo PutItem
+    // Ruaj te DynamoDB
     await ddb.send(
       new PutCommand({
         TableName: TABLE,
         Item: { id, email, createdAt },
+        // Nëse dëshiron të shmangësh dublikatat sipas *id*-s, kjo s’ndihmon.
+        // Duhet PK = email që të jetë unik, ose përdor ConditionExpression për email
+        // vetëm nëse email është Key. Për momentin e lëmë pa kusht.
+        // ConditionExpression: "attribute_not_exists(id)",
       })
     );
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true }, { status: 200 });
   } catch (err: any) {
-    // KTHE info për diagnozë (pa sekrete)
-    const msg = err?.message || String(err);
-    const code = err?.name || err?.code || "UnknownError";
-    return NextResponse.json(
-      {
-        ok: false,
-        reason: "aws_error",
-        code,
-        message: msg,
-        table: process.env.TABLE_NAME || "n/a",
-        env: {
-          region: !!process.env.LUMINA_REGION,
-          akid: !!process.env.LUMINA_AKID,
-          sak: !!process.env.LUMINA_SAK,
-        },
-      },
-      { status: 500 }
-    );
+    // mos ekspozo sekrete / env; kthe mesazh minimal
+    // nëse në të ardhmen përdor ConditionExpression për unik, mund të kapësh dublikatat:
+    // if (err?.name === "ConditionalCheckFailedException") return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: false, reason: "server_error" }, { status: 500 });
   }
 }
