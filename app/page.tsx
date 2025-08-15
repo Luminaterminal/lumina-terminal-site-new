@@ -1,177 +1,132 @@
 // app/page.tsx
-import dynamic from "next/dynamic";
-
-// komponentët që duam vetëm në klient
-const MarketChart = dynamic(() => import("./components/MarketChart"), { ssr: false });
-const EarlyAccessForm = dynamic(() => import("./components/EarlyAccessForm"), { ssr: false });
-
-const markets = [
-  "US Equity",
-  "CME Group",
-  "Hong Kong Exchange",
-  "Eurex",
-  "London Stock Exchange",
-  "Forex",
-  "Indices",
-];
+import Link from "next/link";
+import MarketPanel from "./components/MarketPanel";
+// Nëse ke një form ekzistues për early access, ç‘komento vijën më poshtë:
+// import EarlyAccessForm from "./components/EarlyAccessForm";
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-black text-zinc-100">
-      {/* Top bar */}
-      <header className="border-b border-zinc-800">
-        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded-full bg-zinc-900 ring-1 ring-zinc-700 flex items-center justify-center">
-              <span className="text-xs">▲</span>
-            </div>
-            <span className="font-semibold tracking-wide">Lumina Terminal</span>
-          </div>
-          <nav className="hidden md:flex items-center gap-6 text-sm text-zinc-300">
-            <a href="#features" className="hover:text-white">Features</a>
-            <a href="#markets" className="hover:text-white">Markets</a>
-            <a href="#investors" className="hover:text-white">Investors</a>
-            <a href="#about" className="hover:text-white">About</a>
-            <a href="#contact" className="hover:text-white">Contact</a>
-          </nav>
-          {/* butoni vetëm të të çojë te seksioni #cta për formën */}
-          <a
-            href="#cta"
-            className="rounded-lg bg-white text-black px-3 py-1.5 text-sm font-medium hover:bg-zinc-200"
-          >
-            Get early access
-          </a>
-        </div>
-      </header>
+    <main className="min-h-screen bg-[#0B1215] text-slate-200">
+      {/* CONTAINER KRYESOR */}
+      <div className="mx-auto w-full max-w-6xl px-4 py-14 md:py-20">
 
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-30"
-          style={{
-            background:
-              "radial-gradient(600px 300px at 50% -20%, #4f46e5 0%, transparent 60%), radial-gradient(600px 300px at 120% 0%, #22d3ee 0%, transparent 50%)",
-          }}
-        />
-        <div className="mx-auto max-w-7xl px-6 pt-20 pb-16 relative">
-          <h1 className="text-4xl md:text-6xl font-semibold leading-tight tracking-tight">
-            Illuminate the Markets
-          </h1>
-          <p className="mt-4 max-w-2xl text-zinc-300">
-            Bring institutional grade visibility to everyone. Lumina equips both
-            retail and professional traders with the same high fidelity market insights
-            typically reserved for institutions.
-          </p>
-          {/* CTA: këtu e fusim formën */}
-          <div id="cta" className="mt-8 flex flex-col sm:flex-row gap-3">
-            <EarlyAccessForm />
-            <a
-              href="#features"
-              className="rounded-lg ring-1 ring-zinc-700 px-5 py-2.5 font-medium hover:bg-zinc-900"
+        {/* NAV i thjeshtë */}
+        <header className="mb-10 flex items-center justify-between">
+          <div className="font-semibold tracking-wide text-slate-100">
+            LUMINA TERMINAL
+          </div>
+          <nav className="hidden gap-6 text-sm text-slate-300 md:flex">
+            <Link href="#features" className="hover:text-slate-100">Features</Link>
+            <Link href="#investors" className="hover:text-slate-100">Investors</Link>
+            <Link href="#about" className="hover:text-slate-100">About</Link>
+            <Link href="#contact" className="hover:text-slate-100">Contact</Link>
+            <Link
+              href="#early-access"
+              className="rounded-md bg-emerald-600/20 px-3 py-1.5 text-emerald-300 ring-1 ring-emerald-500/30 hover:bg-emerald-600/30"
             >
-              Explore features
-            </a>
-          </div>
-        </div>
-      </section>
+              Get Early Access
+            </Link>
+          </nav>
+        </header>
 
-      {/* Markets + Chart */}
-      <section id="markets" className="mx-auto max-w-7xl px-6 py-16">
-        <div className="mb-6 flex items-end justify-between">
-          <h2 className="text-2xl md:text-3xl font-semibold">Markets</h2>
-          <span className="text-sm text-zinc-400">demo UI</span>
-        </div>
-        <div className="grid gap-6 lg:grid-cols-3">
-          {/* lista e tregjeve */}
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 h-fit">
-            <ul className="space-y-3">
-              {markets.map((m) => (
-                <li
-                  key={m}
-                  className="flex items-center justify-between rounded-lg border border-zinc-800/60 bg-black/40 px-3 py-2 text-zinc-200"
-                >
-                  <span className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 inline-block" />
-                    {m}
-                  </span>
-                  <span className="text-[10px] text-zinc-500">live</span>
-                </li>
-              ))}
+        {/* HERO */}
+        <section className="relative mb-10 text-center">
+          <h1 className="mx-auto max-w-3xl text-4xl font-bold leading-tight text-slate-100 md:text-6xl">
+            Illuminate the Markets.
+          </h1>
+          <p className="mx-auto mt-4 max-w-3xl text-base text-slate-300 md:text-lg">
+            Real-time market data, order flow analysis, and AI-powered trading tools — all in one platform.
+          </p>
+
+          <div className="mt-6">
+            <Link
+              href="#early-access"
+              className="inline-flex items-center rounded-lg bg-emerald-600/20 px-4 py-2 text-emerald-300 ring-1 ring-emerald-500/40 hover:bg-emerald-600/30"
+            >
+              Get Early Access
+            </Link>
+          </div>
+
+          {/* Rreth dekorativ (vend i globit) */}
+          <div
+            aria-hidden
+            className="pointer-events-none mx-auto mt-10 h-56 w-56 rounded-full
+                       ring-1 ring-emerald-400/30
+                       shadow-[0_0_140px_rgba(16,185,129,0.35)]
+                       bg-[radial-gradient(closest-side,rgba(16,185,129,0.25),rgba(13,18,21,0))]"
+          />
+        </section>
+
+        {/* PANELI I BASHKUAR: Kartat + Grafiku + Banner */}
+        <section className="mb-16">
+          <MarketPanel />
+        </section>
+
+        {/* FEATURE + INVESTORS */}
+        <section id="features" className="mb-16 grid gap-8 md:grid-cols-2">
+          <div>
+            <h2 className="mb-4 text-2xl font-semibold text-slate-100">
+              Core Features
+            </h2>
+            <ul className="space-y-3 text-slate-300">
+              <li>✅ Real-Time Market Data &amp; Order Flow</li>
+              <li>✅ Footprint Charts &amp; Heatmaps</li>
+              <li>✅ News Integration &amp; Market Scanner</li>
+              <li>✅ Algorithmic Bots &amp; Copy Trading</li>
+              <li>✅ Secure, Low-Latency Cloud Platform</li>
             </ul>
           </div>
-          {/* chart-i */}
-          <div className="lg:col-span-2">
-            <MarketChart />
+
+          <div id="investors" className="rounded-2xl border border-white/5 bg-white/3 backdrop-blur p-6">
+            <h2 className="mb-2 text-2xl font-semibold text-slate-100">For Investors</h2>
+            <p className="text-slate-300">
+              Lumina Terminal is positioned to disrupt the retail and institutional trading space.
+              Pitch deck and business roadmap available upon request.
+            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Features */}
-      <section id="features" className="mx-auto max-w-7xl px-6 py-16">
-        <h2 className="text-2xl md:text-3xl font-semibold">Core features</h2>
-        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            ["Real time market data & order flow", "High granularity feeds for precise decision making."],
-            ["Level 2+ (MBO/MBP)", "Market by order and market by price depth."],
-            ["Footprint chart", "Volume at price & delta visualization."],
-            ["Heatmap", "Liquidity and depth dynamics at a glance."],
-            ["Real time news", "Fast headlines, no noise."],
-            ["Smart Scanner", "Volume + price + news filters in real time."],
-            ["Algorithmic bots", "Design, backtest, and deploy."],
-            ["Copy trading", "Follow strategies you trust."],
-            ["Low latency cloud", "Web based, secure, and responsive."],
-          ].map(([title, body]) => (
-            <div key={title} className="rounded-xl border border-zinc-800 p-5 hover:border-zinc-700 transition">
-              <h3 className="font-medium">{title}</h3>
-              <p className="mt-2 text-sm text-zinc-400">{body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* EARLY ACCESS (opsional nëse ke formë) */}
+        <section id="early-access" className="mb-16">
+          <h2 className="mb-4 text-2xl font-semibold text-slate-100">Get Early Access</h2>
+          <p className="mb-4 text-slate-300">
+            Leave your email to get early access and updates when Lumina Terminal launches.
+          </p>
 
-      {/* Investors */}
-      <section id="investors" className="mx-auto max-w-7xl px-6 py-16">
-        <div className="rounded-2xl border border-zinc-800 p-8 bg-gradient-to-br from-zinc-950 to-zinc-900">
-          <h2 className="text-2xl md:text-3xl font-semibold">For Early Investors</h2>
-          <p className="mt-4 text-zinc-300">
-            We bring institutional grade visibility to everyone—retail and professional traders alike.
-            Pitch deck and business roadmap are available upon request.
-          </p>
-          <p className="mt-4 text-zinc-300">
-            Before the full platform launch, we’ll introduce a utility token that enables up to 20% savings
-            on platform fees when used for payment.
-          </p>
-          <a
-            href="mailto:admin@luminaterminal.com?subject=Investor%20materials%20request"
-            className="mt-6 inline-block rounded-lg bg-white text-black px-5 py-2.5 font-medium hover:bg-zinc-200"
+          {/* Nëse ke komponent ekzistues të formës, hiq komentin: */}
+          {/* <EarlyAccessForm /> */}
+
+          {/* Nëse akoma s’ke formë, një buton placeholder: */}
+          <Link
+            href="mailto:admin@luminaterminal.com?subject=Early%20Access%20Request"
+            className="inline-flex rounded-lg bg-emerald-600/20 px-4 py-2 text-emerald-300 ring-1 ring-emerald-500/40 hover:bg-emerald-600/30"
           >
-            Request investor materials
-          </a>
-        </div>
-      </section>
+            Request via Email
+          </Link>
+        </section>
 
-      {/* About */}
-      <section id="about" className="mx-auto max-w-7xl px-6 py-16">
-        <h2 className="text-2xl md:text-3xl font-semibold">About Lumina</h2>
-        <p className="mt-4 max-w-3xl text-zinc-300">
-          Built by active traders for active traders. Our mission is to combine AI-driven decision tools
-          with transparent, low-latency market data so your workflow is faster, clearer, and more confident.
-        </p>
-      </section>
+        {/* ABOUT */}
+        <section id="about" className="mb-12">
+          <h2 className="mb-3 text-2xl font-semibold text-slate-100">About Lumina</h2>
+          <p className="max-w-3xl text-slate-300">
+            Founded by professional traders; Lumina Terminal merges institutional-grade analytics
+            with AI-driven decision tools — built for retail and institutional users.
+          </p>
+        </section>
 
-      {/* Contact */}
-      <section id="contact" className="mx-auto max-w-7xl px-6 py-16">
-        <div className="rounded-xl border border-zinc-800 p-6">
-          <h2 className="text-xl font-semibold">Contact</h2>
-          <p className="mt-2 text-zinc-300">admin@luminaterminal.com</p>
-        </div>
-      </section>
+        {/* CONTACT (pa numër telefoni) */}
+        <section id="contact" className="mb-8">
+          <h2 className="mb-3 text-2xl font-semibold text-slate-100">Contact Us</h2>
+          <p className="text-slate-300">
+            Email: <a className="text-emerald-300 hover:underline" href="mailto:admin@luminaterminal.com">admin@luminaterminal.com</a>
+          </p>
+        </section>
 
-      <footer className="border-t border-zinc-800">
-        <div className="mx-auto max-w-7xl px-6 py-6 text-sm text-zinc-500">
+        {/* FOOTER */}
+        <footer className="mt-8 border-t border-white/5 pt-6 text-center text-xs text-slate-400">
           © {new Date().getFullYear()} Lumina Terminal. All rights reserved.
-        </div>
-      </footer>
+        </footer>
+      </div>
     </main>
   );
 }
