@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   createChart,
   ColorType,
@@ -37,8 +37,14 @@ const mockTape: TapeRow[] = [
 
 export default function MarketPanel() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
     if (!containerRef.current) return;
 
     const chart = createChart(containerRef.current, {
@@ -158,7 +164,13 @@ export default function MarketPanel() {
 
       {/* Grafiku */}
       <div className="rounded-2xl border border-white/5 bg-white/3 backdrop-blur p-3">
-        <div ref={containerRef} className="w-full" />
+        {isClient ? (
+          <div ref={containerRef} className="w-full" />
+        ) : (
+          <div className="w-full h-[360px] flex items-center justify-center text-slate-400">
+            Loading chart...
+          </div>
+        )}
         <div className="mt-2 text-xs text-amber-300">Average dark pr.</div>
       </div>
 

@@ -1,8 +1,18 @@
 // app/components/MarketChart.tsx
-import React from 'react';
-import Chart from 'react-apexcharts';
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+
+// Dynamically import Chart with no SSR
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const MarketChart = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   const times = [
     '2025-08-14T10:00:00',
     '2025-08-14T10:30:00',
@@ -207,6 +217,14 @@ const MarketChart = () => {
       enabled: true,
     },
   };
+
+  if (!isClient) {
+    return (
+      <div className="w-full h-[350px] flex items-center justify-center text-slate-400 bg-slate-900/20 rounded-lg">
+        Loading chart...
+      </div>
+    );
+  }
 
   return <Chart options={options} series={series} type={"candlestick" as const} height={350} width="100%" />;
 };

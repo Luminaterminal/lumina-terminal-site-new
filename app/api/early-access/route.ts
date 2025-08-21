@@ -7,11 +7,12 @@ import { PutCommand } from "@aws-sdk/lib-dynamodb";
 // ⬇️ korrigjo rrugën sipas strukturës tënde
 import { ddb, TABLE } from "../../lib/db";
 
-// ID e shkurtër si "safe PK"
+// ID e shkurtër si "safe PK" - server-side only
 function makeId() {
-  return (
-    Date.now().toString(36) + Math.random().toString(36).slice(2, 8)
-  ).toUpperCase();
+  // Use crypto for better randomness on server
+  const timestamp = Date.now().toString(36);
+  const randomBytes = require('crypto').randomBytes(4).toString('hex');
+  return (timestamp + randomBytes).toUpperCase();
 }
 
 export async function POST(req: Request) {
