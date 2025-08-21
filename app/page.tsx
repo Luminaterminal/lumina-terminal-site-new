@@ -47,13 +47,11 @@ export default function Page() {
             </Link>
           </div>
 
-          {/* Rreth dekorativ (vend i globit) */}
-          <div
-            aria-hidden
-            className="pointer-events-none mx-auto mt-10 h-56 w-56 rounded-full
-                       ring-1 ring-emerald-400/30
-                       shadow-[0_0_140px_rgba(16,185,129,0.35)]
-                       bg-[radial-gradient(closest-side,rgba(16,185,129,0.25),rgba(13,18,21,0))]"
+         {/* Glob sferik */}
+<div className="globe-wrap mx-auto mt-10">
+  <div className="globe" />
+</div>
+
           />
         </section>
 
