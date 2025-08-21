@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Debug and analysis files
+debug_*.js
+test_*.js
+*_analysis*
+*_report*
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+architecture_diagram.png
+component_interaction.png
+dependency_graph.png
+file_size_analysis.png
+project_structure.png
+tech_stack.png
+
+# Documentation and guides (temporary)
+*_GUIDE.md
+*_ANALYSIS.md
+PROJECT_ANALYSIS.md
+DYNAMODB_FIX_GUIDE.md
+aws_setup_guide.md
+
+# Python files (if any)
+*.py
+requirements.txt
+__pycache__/
+*.pyc
+
+# Shell scripts (temporary)
+*.sh

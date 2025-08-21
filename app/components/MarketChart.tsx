@@ -58,21 +58,21 @@ const MarketChart = () => {
 
   const options = {
     chart: {
-      type: 'candlestick',
+      type: 'candlestick' as const,
       height: 350,
       background: '#1a1a1a',
       foreColor: '#ccc',
     },
     title: {
       text: 'Palantir Technologies Inc. $PLTR - Combined Dark Pool Activity',
-      align: 'left',
+      align: 'left' as const,
       style: {
         color: '#fff',
       },
     },
     subtitle: {
       text: 'Dark Pool Volume: 9.2M +5.8% | Negative Volume: 65,916 ▼20.7% | Sens. Analytics: NEGATIVE | Social Media: NEGATIVE | Unusual Volume: 5 posts ▲31.3% | Average Price: 24.10 ▼1.7% | Current Price: 24.10',
-      align: 'left',
+      align: 'left' as const,
       style: {
         color: '#ccc',
       },
@@ -156,7 +156,7 @@ const MarketChart = () => {
       ],
     },
     xaxis: {
-      type: 'datetime',
+      type: 'datetime' as const,
       min: new Date('2025-08-14T09:00:00').getTime(),
       labels: {
         datetimeFormatter: {
@@ -208,7 +208,7 @@ const MarketChart = () => {
     },
   };
 
-  return <Chart options={options} series={series} type="candlestick" height={350} width="100%" />;
+  return <Chart options={options} series={series} type={"candlestick" as const} height={350} width="100%" />;
 };
 
 export default MarketChart;

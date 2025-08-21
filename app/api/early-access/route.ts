@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 // ⬇️ korrigjo rrugën sipas strukturës tënde
-import { ddb, TABLE } from "../../../lib/db";
+import { ddb, TABLE } from "../../lib/db";
 
 // ID e shkurtër si "safe PK"
 function makeId() {
@@ -16,11 +16,17 @@ function makeId() {
 
 export async function POST(req: Request) {
   try {
-    // mos lër tekst jashtë-komenti këtu, përndryshe prishet build-i
+    // Check environment variables
+    if (!TABLE) {
+      console.error('TABLE_NAME environment variable is not set');
+      return NextResponse.json({ ok: false, reason: "configuration_error" }, { status: 500 });
+    }
+
+    // Parse and validate request body
     const body = (await req.json().catch(() => ({}))) as { email?: string };
     const email = (body?.email || "").toString().trim().toLowerCase();
 
-    // validim i thjeshtë
+    // Validate email format
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email || !re.test(email)) {
       return NextResponse.json({ ok: false, reason: "bad_email" }, { status: 400 });
@@ -29,23 +35,64 @@ export async function POST(req: Request) {
     const id = makeId();
     const createdAt = new Date().toISOString();
 
-    // Ruaj te DynamoDB
-    await ddb.send(
-      new PutCommand({
-        TableName: TABLE,
-        Item: { id, email, createdAt },
-        // Nëse dëshiron të shmangësh dublikatat sipas *id*-s, kjo s’ndihmon.
-        // Duhet PK = email që të jetë unik, ose përdor ConditionExpression për email
-        // vetëm nëse email është Key. Për momentin e lëmë pa kusht.
-        // ConditionExpression: "attribute_not_exists(id)",
-      })
-    );
+    // Save to DynamoDB with detailed error handling
+    try {
+      await ddb.send(
+        new PutCommand({
+          TableName: TABLE,
+          Item: { id, email, createdAt },
+        })
+      );
+    } catch (dbError: any) {
+      console.error('DynamoDB Error:', {
+        name: dbError.name,
+        message: dbError.message,
+        code: dbError.$metadata?.httpStatusCode,
+        table: TABLE
+      });
 
-    return NextResponse.json({ ok: true }, { status: 200 });
+      // Handle specific DynamoDB errors
+      if (dbError.name === 'ResourceNotFoundException') {
+        return NextResponse.json({
+          ok: false,
+          reason: "table_not_found",
+          details: "DynamoDB table does not exist"
+        }, { status: 500 });
+      } else if (dbError.name === 'UnrecognizedClientException') {
+        return NextResponse.json({
+          ok: false,
+          reason: "auth_error",
+          details: "Invalid AWS credentials"
+        }, { status: 500 });
+      } else if (dbError.name === 'ValidationException') {
+        return NextResponse.json({
+          ok: false,
+          reason: "validation_error",
+          details: "Invalid data format"
+        }, { status: 500 });
+      }
+
+      // Re-throw for general error handling
+      throw dbError;
+    }
+
+    return NextResponse.json({
+      ok: true,
+      message: "Faleminderit! Do t'ju njoftojmë shpejt."
+    }, { status: 200 });
+
   } catch (err: any) {
-    // mos ekspozo sekrete / env; kthe mesazh minimal
-    // nëse në të ardhmen përdor ConditionExpression për unik, mund të kapësh dublikatat:
-    // if (err?.name === "ConditionalCheckFailedException") return NextResponse.json({ ok: true });
-    return NextResponse.json({ ok: false, reason: "server_error" }, { status: 500 });
+    console.error('General Error in early access API:', {
+      name: err.name,
+      message: err.message,
+      stack: err.stack
+    });
+
+    // Return generic error without exposing internal details
+    return NextResponse.json({
+      ok: false,
+      reason: "server_error",
+      details: process.env.NODE_ENV === 'development' ? err.message : undefined
+    }, { status: 500 });
   }
 }
