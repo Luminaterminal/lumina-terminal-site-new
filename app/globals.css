@@ -1,3 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+  .globe{
+    --c1:#061816;        /* shadow base */
+    --c2:#0f2622;        /* mid */
+    --c3:#1ed19f;        /* highlight green */
+    width: clamp(200px, 28vw, 420px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 120% at 30% 25%, rgba(255,255,255,.22), rgba(255,255,255,0) 35%),
+      radial-gradient(80% 80%  at 70% 70%, rgba(0,0,0,.50), rgba(0,0,0,0) 55%),
+      radial-gradient(circle at 40% 35%, var(--c3) 0%, var(--c2) 40%, var(--c1) 76%, #03100e 100%);
+    box-shadow:
+      inset 0 0 70px rgba(0,0,0,.55),
+      0 30px 80px rgba(0,0,0,.65),
+      0 0 140px rgba(30,209,159,.25);
+  }
+  .globe::before{
+    content:"";
+    position:absolute; inset:-200%;
+    background:
+      repeating-conic-gradient(from 0deg,
+        rgba(255,255,255,.055) 0 1deg, transparent 1deg 15deg),
+      repeating-radial-gradient(circle at 50% 50%,
+        rgba(255,255,255,.04) 0 2px, transparent 2px 12px);
+    filter: blur(1.2px);
+    animation: lumina-spin 40s linear infinite;
+  }
+  .globe::after{
+    content:"";
+    position:absolute;
+    width:60%; height:60%;
+    left:16%; top:10%;
+    border-radius:50%;
+    background: radial-gradient(circle at 30% 30%,
+      rgba(255,255,255,.45), rgba(255,255,255,.08) 35%, rgba(255,255,255,0) 60%);
+    filter: blur(10px);
+  }
+  .globe-wrap{ position:relative; display:inline-block; }
+  .globe-wrap::after{
+    content:"";
+    position:absolute; inset:-20%;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(30,209,159,.18), rgba(30,209,159,0) 60%);
+    filter: blur(6px);
+    z-index:-1;
+  }
+  @keyframes lumina-spin { to { transform: rotate(360deg); } }
+}
