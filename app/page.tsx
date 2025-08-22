@@ -1,8 +1,7 @@
 // app/page.tsx
 import Link from "next/link";
 import MarketPanel from "./components/MarketPanel";
-// Nëse ke një form ekzistues për early access, ç‘komento vijën më poshtë:
-// import EarlyAccessForm from "./components/EarlyAccessForm";
+import EarlyAccessForm from "./components/EarlyAccessForm";
 
 export default function Page() {
   return (
@@ -89,23 +88,14 @@ export default function Page() {
           </div>
         </section>
 
-        {/* EARLY ACCESS (opsional nëse ke formë) */}
+        {/* EARLY ACCESS */}
         <section id="early-access" className="mb-16">
           <h2 className="mb-4 text-2xl font-semibold text-slate-100">Get Early Access</h2>
           <p className="mb-4 text-slate-300">
             Leave your email to get early access and updates when Lumina Terminal launches.
           </p>
 
-          {/* Nëse ke komponent ekzistues të formës, hiq komentin: */}
-          {/* <EarlyAccessForm /> */}
-
-          {/* Nëse akoma s’ke formë, një buton placeholder: */}
-          <Link
-            href="mailto:admin@luminaterminal.com?subject=Early%20Access%20Request"
-            className="inline-flex rounded-lg bg-emerald-600/20 px-4 py-2 text-emerald-300 ring-1 ring-emerald-500/40 hover:bg-emerald-600/30"
-          >
-            Request via Email
-          </Link>
+          <EarlyAccessForm />
         </section>
 
         {/* ABOUT */}

@@ -79,7 +79,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       ok: true,
-      message: "Faleminderit! Do t'ju njoftojmë shpejt."
+      message: "Thank you! We'll notify you when Lumina Terminal launches."
     }, { status: 200 });
 
   } catch (err: any) {
