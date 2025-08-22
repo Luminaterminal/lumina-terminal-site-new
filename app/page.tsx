@@ -54,9 +54,6 @@ export default function Page() {
              shadow-[0_0_140px_rgba(16,185,129,0.35)]
              bg-[radial-gradient(closest-side,rgba(16,185,129,0.25),rgba(13,18,21,0))]"
 />
-
-
-          />
         </section>
 
         {/* PANELI I BASHKUAR: Kartat + Grafiku + Banner */}
